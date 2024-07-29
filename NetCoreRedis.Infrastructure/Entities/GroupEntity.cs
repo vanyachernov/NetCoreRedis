@@ -10,4 +10,5 @@ public class GroupEntity
     public int CurrentSemester { get; set; } = 1;
     public DateTime CreatedDate { get; set; } = DateTime.UtcNow;
     public DateTime UpdatedDate { get; set; } = DateTime.UtcNow;
+    public ICollection<StudentEntity> Students { get; set; } = [];
 };
