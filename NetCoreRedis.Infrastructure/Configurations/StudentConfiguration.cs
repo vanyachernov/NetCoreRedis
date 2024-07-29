@@ -1,6 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using NetCoreRedis.Entities;
+using NetCoreRedis.Infrastructure.Seeds;
 
 namespace NetCoreRedis.Infrastructure.Configurations;
 
@@ -17,5 +18,6 @@ public class StudentConfiguration : IEntityTypeConfiguration<StudentEntity>
             .Property(s => s.EducationForm)
             .IsRequired()
             .HasConversion<int>();
+
     }
 }

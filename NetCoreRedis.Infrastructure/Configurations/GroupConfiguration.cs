@@ -1,6 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using NetCoreRedis.Entities;
+using NetCoreRedis.Infrastructure.Seeds;
 
 namespace NetCoreRedis.Infrastructure.Configurations;
 
@@ -17,5 +18,7 @@ public class GroupConfiguration : IEntityTypeConfiguration<GroupEntity>
             .Property(g => g.Specialty)
             .IsRequired()
             .HasConversion<int>();
+
+        builder.HasData(SeedData.GetGroups());
     }
 }
