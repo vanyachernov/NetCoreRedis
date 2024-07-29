@@ -1,5 +1,6 @@
 namespace NetCoreRedis.Entities;
 
+using System.Text.Json.Serialization;
 using NetCoreRedis.Enums;
 
 public class StudentEntity
