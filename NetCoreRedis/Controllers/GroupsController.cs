@@ -27,29 +27,47 @@ namespace NetCoreRedis.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> Get()
+        public async Task<ActionResult<IEnumerable<GroupResponseDto>>> Get()
         {
-            // Check cache data
-            var cacheData = _cacheService.GetData<IEnumerable<GroupEntity>>("groups");
+            var cachedGroups = _cacheService.GetData<IEnumerable<GroupResponseDto>>("groups");
 
-            if (cacheData != null && cacheData.Count() > 0)
+            if (cachedGroups != null && cachedGroups.Any())
             {
-                return Ok(cacheData);
+                return Ok(cachedGroups);
             }
 
-            cacheData = await _context
-                .Groups
+            var groups = await _context.Groups
+                .Include(g => g.Students)
                 .ToListAsync();
 
-            // Set expiry time
-            var expiryTime = DateTimeOffset.Now.AddSeconds(30);
-            _cacheService.SetData<IEnumerable<GroupEntity>>("groups", cacheData, expiryTime);
+            var groupResponseDtos = groups
+                .Select(g => new GroupResponseDto(
+                    Id: g.Id,
+                    EnrolmentYear: g.EnrolmentYear,
+                    Specialty: (int)g.Specialty,
+                    Semester: g.CurrentSemester,
+                    CreatedDate: g.CreatedDate,
+                    UpdatedDate: g.UpdatedDate,
+                    Students: g.Students.Select(s => new StudentResponseDto(
+                            Id: s.Id,
+                            FirstName: s.FirstName,
+                            MiddleName: s.MiddleName,
+                            LastName: s.LastName,
+                            BirthDate: s.DateOfBirth,
+                            EducationForm: (int)s.EducationForm
+                        ))
+                        .ToList()
+                ))
+                .ToList();
 
-            return Ok(cacheData);
+            var expiryTime = DateTimeOffset.Now.AddSeconds(30);
+            _cacheService.SetData("groups", groupResponseDtos, expiryTime);
+
+            return Ok(groupResponseDtos);
         }
 
         [HttpPost("create")]
-        public async Task<IActionResult> Post([FromBody] GroupRequestDto group)
+        public async Task<ActionResult<GroupResponseDto>> Post([FromBody] GroupRequestDto group)
         {
             var newGroupEntity = new GroupEntity
             {
@@ -65,18 +83,31 @@ namespace NetCoreRedis.Controllers
                 .AddAsync(newGroupEntity);
 
             var expiryTime = DateTimeOffset.Now.AddSeconds(30);
-            _cacheService.SetData<GroupEntity>($"group{newGroupEntity.Id}", newGroup.Entity, expiryTime);
+            _cacheService.SetData<GroupEntity>(
+                $"group{newGroupEntity.Id}",
+                newGroup.Entity,
+                expiryTime
+            );
 
             await _context.SaveChangesAsync();
 
-            return Ok(newGroup.Entity);
+            var newGroupEntityDto = new GroupResponseDto
+            (
+                newGroupEntity.Id,
+                newGroupEntity.EnrolmentYear,
+                (int)newGroupEntity.Specialty,
+                newGroupEntity.CurrentSemester,
+                newGroupEntity.CreatedDate,
+                newGroupEntity.UpdatedDate
+            );
+
+            return Ok(newGroupEntityDto);
         }
 
         [HttpDelete("{groupId:guid}")]
         public async Task<IActionResult> Delete([FromRoute] Guid groupId)
         {
-            var group = await _context.Groups
-                .FirstOrDefaultAsync(g => g.Id == groupId);
+            var group = await _context.Groups.FirstOrDefaultAsync(g => g.Id == groupId);
 
             if (group == null)
             {
