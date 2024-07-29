@@ -1,7 +1,16 @@
+using Microsoft.EntityFrameworkCore;
+using NetCoreRedis.Infrastructure;
+
 var builder = WebApplication.CreateBuilder(args);
 {
-    builder.Services.AddEndpointsApiExplorer();
-    builder.Services.AddSwaggerGen();
+    var services = builder.Services;
+    var configurations = builder.Configuration;
+
+    services.AddEndpointsApiExplorer();
+    services.AddSwaggerGen();
+    services.AddDbContext<ApplicationDbContext>(options => {
+        options.UseNpgsql(configurations.GetConnectionString("Application"));
+    });
 };
 
 var app = builder.Build();
