@@ -1,19 +1,28 @@
 using Microsoft.EntityFrameworkCore;
 using NetCoreRedis.Infrastructure;
+using NetCoreRedis.Infrastructure.Services;
 
 var builder = WebApplication.CreateBuilder(args);
+
+
 {
     var services = builder.Services;
     var configurations = builder.Configuration;
 
     services.AddEndpointsApiExplorer();
     services.AddSwaggerGen();
-    services.AddDbContext<ApplicationDbContext>(options => {
+    services.AddDbContext<ApplicationDbContext>(options =>
+    {
         options.UseNpgsql(configurations.GetConnectionString("Application"));
     });
-};
+    services.AddScoped<ICacheService, CacheService>();
+    services.AddControllers();
+}
+;
 
 var app = builder.Build();
+
+
 {
     if (app.Environment.IsDevelopment())
     {
@@ -22,5 +31,7 @@ var app = builder.Build();
     }
 
     app.UseHttpsRedirection();
+    app.MapControllers();
     app.Run();
-};
+}
+;
