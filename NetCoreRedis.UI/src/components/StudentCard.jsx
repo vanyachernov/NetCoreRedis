@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import {
+  Flex,
   Text,
   Grid,
   GridItem,
@@ -16,25 +17,16 @@ import { useNavigate } from "react-router-dom";
 import { deleteStudentById, formatDate } from "../services/students";
 import "./styles/StudentCard.css";
 
-function StudentCard({
-  studentId,
-  studentName,
-  studentSurname,
-  studentMiddleName,
-  studentBirth,
-  studentEducationForm,
-}) {
+function StudentCard({ student, onEdit }) {
+  const { id, firstName, lastName, middleName, birthDate, directionName } =
+    student;
   const [isDeleting, setIsDeleting] = useState(false);
   const { isOpen, onOpen, onClose } = useDisclosure();
   const cancelRef = React.useRef();
   const navigate = useNavigate();
 
-  const handleClick = () => {
-    navigate(`/students/${studentId}`);
-  };
-
   const handleDelete = async () => {
-    await deleteStudentById(studentId);
+    await deleteStudentById(id);
     setIsDeleting(false);
   };
 
@@ -48,25 +40,35 @@ function StudentCard({
         gap={6}
       >
         <GridItem area={"studentName"}>
-          <Text fontSize="25px">{studentSurname}</Text>
-          <Text fontSize="20px">{studentName}</Text>
-          <Text fontSize="20px">{studentMiddleName}</Text>
+          <Text fontSize="25px">{lastName}</Text>
+          <Text fontSize="20px">{firstName}</Text>
+          <Text fontSize="20px">{middleName}</Text>
         </GridItem>
         <GridItem area={"studentBirth"} justifySelf="end" pt="2">
-          <Text fontSize="18px">{studentBirth}</Text>
+          <Text fontSize="18px">{formatDate(birthDate)}</Text>
         </GridItem>
         <GridItem area={"studentForm"}>
-          <Text fontSize="2xl">{studentEducationForm}</Text>
+          <Text fontSize="2xl">{directionName}</Text>
         </GridItem>
         <GridItem area={"controls"} justifySelf="end">
-          <Button
-            border="2px solid black"
-            bgColor="red"
-            color="white"
-            onClick={onOpen}
-          >
-            Удалить
-          </Button>
+          <Flex gap={3}>
+            <Button
+              border="2px solid black"
+              bgColor="teal"
+              color="white"
+              onClick={() => onEdit(student)}
+            >
+              Редактировать
+            </Button>
+            <Button
+              border="2px solid black"
+              bgColor="red"
+              color="white"
+              onClick={onOpen}
+            >
+              Удалить
+            </Button>
+          </Flex>
         </GridItem>
       </Grid>
 

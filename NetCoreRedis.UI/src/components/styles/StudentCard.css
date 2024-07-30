@@ -9,14 +9,22 @@
 }
 
 .heading-container {
-    text-align: center;
     display: flex;
     align-items: center;
     flex-direction: row;
-    gap: 30px;
+    justify-content: space-between;
+    gap: 20px;
+}
+
+.students-wrapper {
+    max-height: 600px;
+    overflow-y: auto;
 }
 
 .students-container {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
     display: flex;
     flex-direction: column;
     gap: 10px;

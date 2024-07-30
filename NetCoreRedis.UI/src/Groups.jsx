@@ -2,7 +2,8 @@ import React, { useEffect, useState } from "react";
 import { fetchGroupsBySpecialtyId } from "./services/groups";
 import { useParams } from "react-router-dom";
 import GroupCard from "./components/GroupCard";
-import { Heading, Text } from "@chakra-ui/react";
+import { Heading, Flex } from "@chakra-ui/react";
+import "./Group.css";
 
 function Groups() {
   const { specialtyId } = useParams();
@@ -18,12 +19,12 @@ function Groups() {
 
   return (
     <div>
-      <div className="heading-container">
+      <Flex alignItems="center" flexDirection="column">
         <Heading>Список групп</Heading>
-        <Heading fontSize="3xl" pt="2">
+        <Heading fontSize="2xl" pt="2" pb="4">
           Специальность: {specialtyId}
         </Heading>
-      </div>
+      </Flex>
       <ul className="groups-container">
         {groups.map((g) => (
           <GroupCard

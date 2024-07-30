@@ -18,6 +18,8 @@ body {
 .heading-container {
     padding-top: 20px;
     margin-bottom: 20px;
+    display: flex;
+    justify-content: center;
 }
 
 .cards-container {
