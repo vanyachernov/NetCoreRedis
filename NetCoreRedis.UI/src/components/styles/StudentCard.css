@@ -1,0 +1,19 @@
+.article {
+    border: 2px solid black;
+    border-radius: 20px;
+    max-width: 600px;
+    width: 100%;
+    padding: 20px;
+    background-color: white;
+    color: black;
+}
+
+.heading-container {
+    text-align: center;
+}
+
+.students-container {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}

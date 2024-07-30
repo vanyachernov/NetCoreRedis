@@ -4,6 +4,7 @@ import { Routes, Route, UNSAFE_LocationContext } from "react-router-dom";
 import { Heading } from "@chakra-ui/react";
 import SpecialtyCard from "./components/SpecialtyCard";
 import Groups from "./Groups";
+import Students from "./Students";
 import { fetchSpecialties } from "./services/specialities.ts";
 import "./App.css";
 
@@ -43,6 +44,7 @@ function App() {
         }
       />
       <Route path="/specialties/:specialtyId/groups" element={<Groups />} />
+      <Route path="/group/:groupId/students" element={<Students />} />
     </Routes>
   );
 }

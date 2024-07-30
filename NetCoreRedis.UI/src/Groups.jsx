@@ -11,7 +11,6 @@ function Groups() {
   useEffect(() => {
     const fetchGroupsData = async () => {
       const data = await fetchGroupsBySpecialtyId(Number(specialtyId));
-      console.log(data);
       setGroups(data);
     };
     fetchGroupsData();
