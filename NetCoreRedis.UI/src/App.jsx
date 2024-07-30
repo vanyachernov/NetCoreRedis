@@ -1,35 +1,49 @@
-import { useEffect, useState } from "react";
-import "./App.css";
+// App.jsx
+import React, { useEffect, useState } from "react";
+import { Routes, Route, UNSAFE_LocationContext } from "react-router-dom";
 import { Heading } from "@chakra-ui/react";
-import SpecialityCard from "./components/SpecialityCard";
-import { fetchSpecialities } from "./services/specialities";
+import SpecialtyCard from "./components/SpecialtyCard";
+import Groups from "./Groups";
+import { fetchSpecialties } from "./services/specialities.ts";
+import "./App.css";
 
 function App() {
-  const [specialityName, setSpecialityName] = useState("");
-  const [activeGroups, setActiveGroups] = useState(0);
+  const [specialties, setSpecialties] = useState([]);
 
   useEffect(() => {
-    const fetchData = async () => {
-      fetchSpecialities();
+    const fetchSpecialtiesData = async () => {
+      const data = await fetchSpecialties();
+      setSpecialties(data);
     };
-
-    fetchData();
+    fetchSpecialtiesData();
   }, []);
 
   return (
-    <section className="main">
-      <div className="main__inner">
-        <div className="heading-container">
-          <Heading>Список специальностей</Heading>
-        </div>
-        <div className="cards-container">
-          <SpecialityCard
-            specialityName={specialityName}
-            activeGroup={activeGroups}
-          />
-        </div>
-      </div>
-    </section>
+    <Routes>
+      <Route
+        path="/specialties"
+        element={
+          <section className="main">
+            <div className="main__inner">
+              <div className="heading-container">
+                <Heading>Список специальностей</Heading>
+              </div>
+              <ul className="cards-container">
+                {specialties.map((s) => (
+                  <SpecialtyCard
+                    key={s.specialtyId}
+                    specialtyId={s.specialtyId}
+                    specialtyName={s.specialtyName}
+                    activeGroup={s.count}
+                  />
+                ))}
+              </ul>
+            </div>
+          </section>
+        }
+      />
+      <Route path="/specialties/:specialtyId/groups" element={<Groups />} />
+    </Routes>
   );
 }
 

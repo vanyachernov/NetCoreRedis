@@ -1,23 +1,30 @@
 import React from "react";
 import { Text, Grid, GridItem, Button } from "@chakra-ui/react";
-import "./styles/SpecialityCard.css";
+import { useNavigate } from "react-router-dom";
+import "./styles/SpecialtyCard.css";
 
-function SpecialityCard({ specialityName, activeGroup }) {
+function SpecialtyCard({ specialtyId, specialtyName, activeGroup }) {
+  const navigate = useNavigate();
+
+  const handleClick = () => {
+    navigate(`/specialties/${specialtyId}/groups`);
+  };
+
   return (
     <article className="article">
       <Grid
         templateAreas={`"specialityTitle groupCount"
-                              ". controls"`}
+                        ". controls"`}
         gap={6}
       >
         <GridItem area={"specialityTitle"}>
           <Text fontSize="2xl" className="specialityTitle">
-            {specialityName}
+            {specialtyName}
           </Text>
         </GridItem>
         <GridItem area={"groupCount"} justifySelf="end">
           <Text textAlign="right" mt="2" fontSize="s" fontWeight="bold">
-            Активных групп: {activeGroup}
+            Групп: {activeGroup}
           </Text>
         </GridItem>
         <GridItem area={"controls"} justifySelf="end">
@@ -25,6 +32,7 @@ function SpecialityCard({ specialityName, activeGroup }) {
             border="2px solid black"
             bgColor="rgb(125, 170, 120)"
             color="white"
+            onClick={handleClick}
           >
             Список групп
           </Button>
@@ -34,4 +42,4 @@ function SpecialityCard({ specialityName, activeGroup }) {
   );
 }
 
-export default SpecialityCard;
+export default SpecialtyCard;
