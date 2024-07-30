@@ -1,5 +1,6 @@
 import axios from "axios";
 import { format, parseISO } from 'date-fns';
+import moment from 'moment';
 
 const baseUrl = 'http://localhost:5198/api';
 
@@ -32,10 +33,36 @@ export const fetchStudents = async (groupId: number) => {
             ...student,
             directionName: getEducationalFormName(student.educationForm)
         }));
-        console.log(enrichedGroups);
         return enrichedGroups;
     } catch (e) {
         console.error(e);
         return [];
     }
 }
+
+export const addStudent = async (studentData) => {
+    try {
+        console.log(studentData);
+        await axios.post(`${baseUrl}/students/create`, {
+            groupId: studentData.groupId,
+            firstName: studentData.firstName,
+            lastName: studentData.lastName,
+            middleName: studentData.middleName,
+            birthDate: moment.utc(studentData.birthDate).format("YYYY-MM-DDTHH:mm:ss[Z]"),
+            educationForm: studentData.educationForm
+        });
+    } catch (error) {
+      console.error(`Error adding student:`, error);
+      throw new Error(`Unable to adding student`);
+    }
+  };
+
+export const deleteStudentById = async (studentId) => {
+    try {
+      await axios.delete(`${baseUrl}/students/${studentId}`);
+      console.log(`Student with ID ${studentId} deleted successfully`);
+    } catch (error) {
+      console.error(`Error deleting student with ID ${studentId}:`, error);
+      throw new Error(`Unable to delete student with ID ${studentId}`);
+    }
+  };
