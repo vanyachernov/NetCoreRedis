@@ -1,0 +1,31 @@
+.article {
+    border: 2px solid black;
+    border-radius: 20px;
+    max-width: 600px;
+    width: 100%;
+    padding: 20px;
+    background-color: white;
+    color: black;
+}
+
+.heading-container {
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+    justify-content: space-between;
+    gap: 20px;
+}
+
+.students-wrapper {
+    max-height: 600px;
+    overflow-y: auto;
+}
+
+.students-container {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
