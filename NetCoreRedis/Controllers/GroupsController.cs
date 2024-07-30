@@ -48,6 +48,7 @@ namespace NetCoreRedis.Controllers
                     UpdatedDate: g.UpdatedDate,
                     Students: g.Students.Select(s => new StudentResponseDto(
                             Id: s.Id,
+                            GroupId: s.GroupId,
                             FirstName: s.FirstName,
                             MiddleName: s.MiddleName,
                             LastName: s.LastName,

@@ -42,6 +42,7 @@ namespace NetCoreRedis.Controllers
             var studentResponseDtos = students
                 .Select(s => new StudentResponseDto(
                     Id: s.Id,
+                    GroupId: s.GroupId,
                     FirstName: s.FirstName,
                     MiddleName: s.MiddleName,
                     LastName: s.LastName,
@@ -86,6 +87,7 @@ namespace NetCoreRedis.Controllers
 
             var newStudentEntityDto = new StudentResponseDto(
                 newStudentEntity.Id,
+                newStudentEntity.GroupId,
                 newStudentEntity.FirstName,
                 newStudentEntity.MiddleName,
                 newStudentEntity.LastName,
