@@ -30,17 +30,14 @@ namespace NetCoreRedis.Controllers
         public async Task<ActionResult<IEnumerable<StudentResponseDto>>> Get()
         {
             // Check cache data
-            var cachedStudents = _cacheService.GetData<IEnumerable<StudentEntity>>("students");
+            var cachedStudents = _cacheService.GetData<IEnumerable<StudentResponseDto>>("students");
 
             if (cachedStudents != null && cachedStudents.Count() > 0)
             {
                 return Ok(cachedStudents);
             }
 
-            var students = await _context
-                .Students
-                .Include(s => s.Group)
-                .ToListAsync();
+            var students = await _context.Students.Include(s => s.Group).ToListAsync();
 
             var studentResponseDtos = students
                 .Select(s => new StudentResponseDto(
@@ -50,7 +47,8 @@ namespace NetCoreRedis.Controllers
                     LastName: s.LastName,
                     BirthDate: s.DateOfBirth,
                     EducationForm: (int)s.EducationForm
-                )).ToList();
+                ))
+                .ToList();
 
             // Set expiry time
             var expiryTime = DateTimeOffset.Now.AddSeconds(30);
@@ -60,7 +58,9 @@ namespace NetCoreRedis.Controllers
         }
 
         [HttpPost("create")]
-        public async Task<ActionResult<StudentResponseDto>> Post([FromBody] StudentRequestDto student)
+        public async Task<ActionResult<StudentResponseDto>> Post(
+            [FromBody] StudentRequestDto student
+        )
         {
             var newStudentEntity = new StudentEntity
             {
@@ -73,16 +73,18 @@ namespace NetCoreRedis.Controllers
                 EducationForm = (EducationFormEntity)student.EducationForm
             };
 
-            var newStudent = await _context.Students
-                .AddAsync(newStudentEntity);
+            var newStudent = await _context.Students.AddAsync(newStudentEntity);
 
             var expiryTime = DateTimeOffset.Now.AddSeconds(30);
-            _cacheService.SetData<StudentEntity>($"group{newStudentEntity.Id}", newStudent.Entity, expiryTime);
+            _cacheService.SetData<StudentEntity>(
+                $"student{newStudentEntity.Id}",
+                newStudent.Entity,
+                expiryTime
+            );
 
             await _context.SaveChangesAsync();
 
-            var newStudentEntityDto = new StudentResponseDto
-            (
+            var newStudentEntityDto = new StudentResponseDto(
                 newStudentEntity.Id,
                 newStudentEntity.FirstName,
                 newStudentEntity.MiddleName,
@@ -97,8 +99,7 @@ namespace NetCoreRedis.Controllers
         [HttpDelete("{studentId:guid}")]
         public async Task<IActionResult> Delete([FromRoute] Guid studentId)
         {
-            var student = await _context.Students
-                .FirstOrDefaultAsync(g => g.Id == studentId);
+            var student = await _context.Students.FirstOrDefaultAsync(g => g.Id == studentId);
 
             if (student == null)
             {

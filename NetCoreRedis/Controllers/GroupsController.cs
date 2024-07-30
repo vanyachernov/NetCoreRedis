@@ -36,9 +36,7 @@ namespace NetCoreRedis.Controllers
                 return Ok(cachedGroups);
             }
 
-            var groups = await _context.Groups
-                .Include(g => g.Students)
-                .ToListAsync();
+            var groups = await _context.Groups.Include(g => g.Students).ToListAsync();
 
             var groupResponseDtos = groups
                 .Select(g => new GroupResponseDto(
@@ -79,8 +77,7 @@ namespace NetCoreRedis.Controllers
                 UpdatedDate = DateTime.UtcNow
             };
 
-            var newGroup = await _context.Groups
-                .AddAsync(newGroupEntity);
+            var newGroup = await _context.Groups.AddAsync(newGroupEntity);
 
             var expiryTime = DateTimeOffset.Now.AddSeconds(30);
             _cacheService.SetData<GroupEntity>(
@@ -91,8 +88,7 @@ namespace NetCoreRedis.Controllers
 
             await _context.SaveChangesAsync();
 
-            var newGroupEntityDto = new GroupResponseDto
-            (
+            var newGroupEntityDto = new GroupResponseDto(
                 newGroupEntity.Id,
                 newGroupEntity.EnrolmentYear,
                 (int)newGroupEntity.Specialty,
