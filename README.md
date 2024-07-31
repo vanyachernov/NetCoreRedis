@@ -14,6 +14,7 @@ This project is a simple ASP.NET Core Web API designed for managing educational 
 - **Redis-JSX**
 - **Chakra UI**
 - **Moment**
+- **SendGrid**
 
 ## Review
 
