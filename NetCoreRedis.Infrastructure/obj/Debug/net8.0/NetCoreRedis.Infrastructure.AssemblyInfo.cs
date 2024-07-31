@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("NetCoreRedis.Infrastructure")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+37c78ea7a106aa34b4cf319a7f6ebcb032d0f90d")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+9d833f5c9a531b28fb893a4d338e8e601fc77e7e")]
 [assembly: System.Reflection.AssemblyProductAttribute("NetCoreRedis.Infrastructure")]
 [assembly: System.Reflection.AssemblyTitleAttribute("NetCoreRedis.Infrastructure")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
