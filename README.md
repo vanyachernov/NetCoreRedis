@@ -21,27 +21,27 @@ This project is a simple ASP.NET Core Web API designed for managing educational 
 
 > #### Specialties:
 
-  ![Specialties-page](https://github.com/vanyachernov/NetCoreRedis/Docs/Images/Specialties.png)
+  ![Specialties-page](https://github.com/vanyachernov/NetCoreRedis/blob/main/Docs/Images/Specialties.png)
 
 > #### Groups
 
-  ![Groups-page](https://github.com/vanyachernov/NetCoreRedis/Docs/Images/Groups.png)
+  ![Groups-page](https://github.com/vanyachernov/NetCoreRedis/blob/main/Docs/Images/Groups.png)
 
 > #### Students group:
 
-  ![Students-page](https://github.com/vanyachernov/NetCoreRedis/Docs/Images/StudentCard.png)
+  ![Students-page](https://github.com/vanyachernov/NetCoreRedis/blob/main/Docs/Images/StudentCard.png)
 
 > #### Empty Students List:
 
-  ![Empty-students-page](https://github.com/vanyachernov/NetCoreRedis/Docs/Images/EmptyList.png)
+  ![Empty-students-page](https://github.com/vanyachernov/NetCoreRedis/blob/main/Docs/Images/EmptyList.png)
 
 ### Features:
 
 > #### Add Student:
-  ![Add-student](https://github.com/vanyachernov/NetCoreRedis/Docs/Images/AddStudent.gif)
+  ![Add-student](https://github.com/vanyachernov/NetCoreRedis/blob/main/Docs/Images/AddStudent.gif)
 
 > ### Delete Student:
-  ![Delete-student](https://github.com/vanyachernov/NetCoreRedis/Docs/Images/DeleteStudent.gif)
+  ![Delete-student](https://github.com/vanyachernov/NetCoreRedis/blob/main/Docs/Images/DeleteStudent.gif)
 
 ## Notes
 
