@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "/Users/vanyachernov/Desktop/Project/NetCoreRedis/NetCoreRedis.Infrastructure/NetCoreRedis.Infrastructure.csproj": {}
+    "/Users/vanyachernov/Desktop/Project/2/NetCoreRedis/NetCoreRedis.Infrastructure/NetCoreRedis.Infrastructure.csproj": {}
   },
   "projects": {
-    "/Users/vanyachernov/Desktop/Project/NetCoreRedis/NetCoreRedis.Infrastructure/NetCoreRedis.Infrastructure.csproj": {
+    "/Users/vanyachernov/Desktop/Project/2/NetCoreRedis/NetCoreRedis.Infrastructure/NetCoreRedis.Infrastructure.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/Users/vanyachernov/Desktop/Project/NetCoreRedis/NetCoreRedis.Infrastructure/NetCoreRedis.Infrastructure.csproj",
+        "projectUniqueName": "/Users/vanyachernov/Desktop/Project/2/NetCoreRedis/NetCoreRedis.Infrastructure/NetCoreRedis.Infrastructure.csproj",
         "projectName": "NetCoreRedis.Infrastructure",
-        "projectPath": "/Users/vanyachernov/Desktop/Project/NetCoreRedis/NetCoreRedis.Infrastructure/NetCoreRedis.Infrastructure.csproj",
+        "projectPath": "/Users/vanyachernov/Desktop/Project/2/NetCoreRedis/NetCoreRedis.Infrastructure/NetCoreRedis.Infrastructure.csproj",
         "packagesPath": "/Users/vanyachernov/.nuget/packages/",
-        "outputPath": "/Users/vanyachernov/Desktop/Project/NetCoreRedis/NetCoreRedis.Infrastructure/obj/",
+        "outputPath": "/Users/vanyachernov/Desktop/Project/2/NetCoreRedis/NetCoreRedis.Infrastructure/obj/",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "/Users/vanyachernov/.nuget/NuGet/NuGet.Config"
@@ -62,6 +62,10 @@
             "Npgsql.EntityFrameworkCore.PostgreSQL": {
               "target": "Package",
               "version": "[8.0.4, )"
+            },
+            "SendGrid": {
+              "target": "Package",
+              "version": "[9.29.3, )"
             }
           },
           "imports": [
