@@ -1,3 +1,7 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using NetCoreRedis.Entities;
@@ -11,12 +15,12 @@ namespace NetCoreRedis.Controllers
     [Route("api/students")]
     public class StudentsController : ControllerBase
     {
-        private readonly ILogger<GroupsController> _logger;
+        private readonly ILogger<StudentsController> _logger;
         private readonly ICacheService _cacheService;
         private readonly ApplicationDbContext _context;
 
         public StudentsController(
-            ILogger<GroupsController> logger,
+            ILogger<StudentsController> logger,
             ICacheService cacheService,
             ApplicationDbContext context
         )
@@ -29,10 +33,9 @@ namespace NetCoreRedis.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<StudentResponseDto>>> Get()
         {
-            // Check cache data
             var cachedStudents = _cacheService.GetData<IEnumerable<StudentResponseDto>>("students");
 
-            if (cachedStudents != null && cachedStudents.Count() > 0)
+            if (cachedStudents != null && cachedStudents.Any())
             {
                 return Ok(cachedStudents);
             }
@@ -51,7 +54,6 @@ namespace NetCoreRedis.Controllers
                 ))
                 .ToList();
 
-            // Set expiry time
             var expiryTime = DateTimeOffset.Now.AddSeconds(30);
             _cacheService.SetData("students", studentResponseDtos, expiryTime);
 
@@ -74,18 +76,10 @@ namespace NetCoreRedis.Controllers
                 EducationForm = (EducationFormEntity)student.EducationForm
             };
 
-            var newStudent = await _context.Students.AddAsync(newStudentEntity);
-
-            var expiryTime = DateTimeOffset.Now.AddSeconds(30);
-            _cacheService.SetData<StudentEntity>(
-                $"student{newStudentEntity.Id}",
-                newStudent.Entity,
-                expiryTime
-            );
-
+            await _context.Students.AddAsync(newStudentEntity);
             await _context.SaveChangesAsync();
 
-            var newStudentEntityDto = new StudentResponseDto(
+            var studentResponseDto = new StudentResponseDto(
                 newStudentEntity.Id,
                 newStudentEntity.GroupId,
                 newStudentEntity.FirstName,
@@ -95,7 +89,12 @@ namespace NetCoreRedis.Controllers
                 (int)newStudentEntity.EducationForm
             );
 
-            return Ok(newStudentEntityDto);
+            _cacheService.RemoveData("students");
+
+            var expiryTime = DateTimeOffset.Now.AddSeconds(30);
+            _cacheService.SetData($"student{newStudentEntity.Id}", studentResponseDto, expiryTime);
+
+            return Ok(studentResponseDto);
         }
 
         [HttpDelete("{studentId:guid}")]
@@ -109,8 +108,10 @@ namespace NetCoreRedis.Controllers
             }
 
             _context.Remove(student);
-            _cacheService.RemoveData($"student{studentId}");
             await _context.SaveChangesAsync();
+
+            _cacheService.RemoveData("students");
+            _cacheService.RemoveData($"student{studentId}");
 
             return NoContent();
         }

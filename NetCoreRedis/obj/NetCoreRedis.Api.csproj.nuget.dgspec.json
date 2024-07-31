@@ -1,0 +1,173 @@
+{
+  "format": 1,
+  "restore": {
+    "/Users/vanyachernov/Desktop/Project/NetCoreRedis/NetCoreRedis/NetCoreRedis.Api.csproj": {}
+  },
+  "projects": {
+    "/Users/vanyachernov/Desktop/Project/NetCoreRedis/NetCoreRedis.Infrastructure/NetCoreRedis.Infrastructure.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "/Users/vanyachernov/Desktop/Project/NetCoreRedis/NetCoreRedis.Infrastructure/NetCoreRedis.Infrastructure.csproj",
+        "projectName": "NetCoreRedis.Infrastructure",
+        "projectPath": "/Users/vanyachernov/Desktop/Project/NetCoreRedis/NetCoreRedis.Infrastructure/NetCoreRedis.Infrastructure.csproj",
+        "packagesPath": "/Users/vanyachernov/.nuget/packages/",
+        "outputPath": "/Users/vanyachernov/Desktop/Project/NetCoreRedis/NetCoreRedis.Infrastructure/obj/",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "/Users/vanyachernov/.nuget/NuGet/NuGet.Config"
+        ],
+        "originalTargetFrameworks": [
+          "net8.0"
+        ],
+        "sources": {
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net8.0": {
+            "targetAlias": "net8.0",
+            "projectReferences": {}
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        },
+        "restoreAuditProperties": {
+          "enableAudit": "true",
+          "auditLevel": "low",
+          "auditMode": "direct"
+        }
+      },
+      "frameworks": {
+        "net8.0": {
+          "targetAlias": "net8.0",
+          "dependencies": {
+            "Microsoft.EntityFrameworkCore.Design": {
+              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[8.0.7, )"
+            },
+            "Microsoft.EntityFrameworkCore.Tools": {
+              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[8.0.7, )"
+            },
+            "Microsoft.Extensions.Caching.StackExchangeRedis": {
+              "target": "Package",
+              "version": "[8.0.7, )"
+            },
+            "Npgsql.EntityFrameworkCore.PostgreSQL": {
+              "target": "Package",
+              "version": "[8.0.4, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/8.0.302/PortableRuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "/Users/vanyachernov/Desktop/Project/NetCoreRedis/NetCoreRedis/NetCoreRedis.Api.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "/Users/vanyachernov/Desktop/Project/NetCoreRedis/NetCoreRedis/NetCoreRedis.Api.csproj",
+        "projectName": "NetCoreRedis.Api",
+        "projectPath": "/Users/vanyachernov/Desktop/Project/NetCoreRedis/NetCoreRedis/NetCoreRedis.Api.csproj",
+        "packagesPath": "/Users/vanyachernov/.nuget/packages/",
+        "outputPath": "/Users/vanyachernov/Desktop/Project/NetCoreRedis/NetCoreRedis/obj/",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "/Users/vanyachernov/.nuget/NuGet/NuGet.Config"
+        ],
+        "originalTargetFrameworks": [
+          "net8.0"
+        ],
+        "sources": {
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net8.0": {
+            "targetAlias": "net8.0",
+            "projectReferences": {
+              "/Users/vanyachernov/Desktop/Project/NetCoreRedis/NetCoreRedis.Infrastructure/NetCoreRedis.Infrastructure.csproj": {
+                "projectPath": "/Users/vanyachernov/Desktop/Project/NetCoreRedis/NetCoreRedis.Infrastructure/NetCoreRedis.Infrastructure.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        },
+        "restoreAuditProperties": {
+          "enableAudit": "true",
+          "auditLevel": "low",
+          "auditMode": "direct"
+        }
+      },
+      "frameworks": {
+        "net8.0": {
+          "targetAlias": "net8.0",
+          "dependencies": {
+            "Microsoft.AspNetCore.OpenApi": {
+              "target": "Package",
+              "version": "[8.0.6, )"
+            },
+            "Microsoft.EntityFrameworkCore": {
+              "target": "Package",
+              "version": "[8.0.7, )"
+            },
+            "Microsoft.EntityFrameworkCore.Design": {
+              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[8.0.7, )"
+            },
+            "Swashbuckle.AspNetCore": {
+              "target": "Package",
+              "version": "[6.4.0, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.AspNetCore.App": {
+              "privateAssets": "none"
+            },
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/8.0.302/PortableRuntimeIdentifierGraph.json"
+        }
+      }
+    }
+  }
+}
